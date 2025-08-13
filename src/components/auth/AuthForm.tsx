@@ -3,7 +3,7 @@
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/lib/supabase-client";
+import { getSupabase } from "@/lib/supabase-client";
 
 function getSiteUrl(): string {
   if (typeof window !== "undefined") return window.location.origin;
@@ -21,7 +21,7 @@ export function AuthForm() {
     setError(null);
     try {
       const redirectTo = `${getSiteUrl()}/auth/callback`;
-      const { error: signInError } = await supabase.auth.signInWithOtp({
+      const { error: signInError } = await getSupabase().auth.signInWithOtp({
         email,
         options: { emailRedirectTo: redirectTo },
       });

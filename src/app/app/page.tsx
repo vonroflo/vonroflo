@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase-client";
+import { getSupabase } from "@/lib/supabase-client";
 
 export default function ClientPortalPage() {
   const [loading, setLoading] = useState(true);
@@ -9,7 +9,7 @@ export default function ClientPortalPage() {
 
   useEffect(() => {
     let mounted = true;
-    supabase.auth.getUser().then(({ data }) => {
+    getSupabase().auth.getUser().then(({ data }) => {
       if (!mounted) return;
       setEmail(data.user?.email ?? null);
       setLoading(false);
@@ -29,7 +29,7 @@ export default function ClientPortalPage() {
   }
 
   async function signOut() {
-    await supabase.auth.signOut();
+    await getSupabase().auth.signOut();
     if (typeof window !== "undefined") window.location.href = "/";
   }
 
