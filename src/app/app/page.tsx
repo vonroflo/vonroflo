@@ -14,6 +14,9 @@ export default function ClientPortalPage() {
       setEmail(data.user?.email ?? null);
       setLoading(false);
     });
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   if (loading) {
